@@ -49,8 +49,7 @@ export class World {
     // Obstacle Geometries & Materials
     this.standardObsGeo = new THREE.BoxGeometry(2.5, 2, 1);
     this.standardObsMat = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
-    
-    // Use Plane for Praying people so it acts like a rug
+    // Use a Plane for Praying people, we will incline it at 45 degrees
     this.prayingObsGeo = new THREE.PlaneGeometry(3, 4);
     this.prayingObsMat = new THREE.MeshLambertMaterial({ map: this.textures.praying, transparent: true });
     
@@ -157,10 +156,10 @@ export class World {
           yPos = 1;
           yHitMin = 0; yHitMax = 2;
         } else if (typeId === 1) {
-          // Praying people
+          // Praying person (45 degree incline)
           mesh = new THREE.Mesh(this.prayingObsGeo, this.prayingObsMat);
-          mesh.rotation.x = -Math.PI / 2; // Lay flat
-          yPos = 0.05; // Just above floor
+          mesh.rotation.x = -Math.PI / 4; // -45 degrees incline
+          yPos = 1.0; // Raised slightly so the bottom edge touches the floor
           yHitMin = 0; yHitMax = 1.5; // Requires jump
         } else if (typeId === 2) {
           // Archway

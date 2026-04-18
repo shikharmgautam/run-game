@@ -109,10 +109,7 @@ export class Game {
     
     // Determine direction based on swipe
     const dir = this.inputManager.isLeftPressed() ? 1 : -1;
-    this.turnRotationTarget = this.cameraRig.rotation.y + (Math.PI / 2) * dir;
-    
-    // Change the world
-    this.world.executeTurn();
+    this.turnRotationTarget = (Math.PI / 2) * dir;
   }
 
   loop() {
@@ -122,6 +119,19 @@ export class Game {
 
     const delta = this.clock.getDelta();
 
+    // Always update world and player to prevent freezing
+    if (!this.isTurning) {
+      this.player.update(delta, this.inputManager, this.world.speed);
+    }
+    
+    // World keeps moving even during the camera spin
+    this.world.update(delta);
+    
+    this.distance += this.world.speed * delta;
+    this.score = this.distance / 10;
+    this.uiElements.currentScore.innerText = Math.floor(this.score);
+    this.world.speed += delta * 0.5;
+
     // Camera Turn Animation
     if (this.isTurning) {
       // Smoothly rotate camera rig
@@ -129,19 +139,14 @@ export class Game {
       
       // If close to target, snap and end turn
       if (Math.abs(this.turnRotationTarget - this.cameraRig.rotation.y) < 0.05) {
-        this.cameraRig.rotation.y = this.turnRotationTarget;
+        // Snap camera back to forward-facing (0)
+        this.cameraRig.rotation.y = 0;
         this.isTurning = false;
+        
+        // NOW transition the world to the new style and reset chunks in front of the camera
+        this.world.executeTurn();
       }
     } else {
-      this.player.update(delta, this.inputManager, this.world.speed);
-      this.world.update(delta);
-      
-      this.distance += this.world.speed * delta;
-      this.score = this.distance / 10;
-      this.uiElements.currentScore.innerText = Math.floor(this.score);
-      
-      this.world.speed += delta * 0.5;
-
       const collision = this.world.checkCollisions(this.player, this.inputManager);
       
       if (collision.hit) {
