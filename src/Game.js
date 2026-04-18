@@ -6,8 +6,17 @@ import { InputManager } from './InputManager.js';
 export class Game {
   constructor() {
     this.initThreeJS();
+    // Setup Loading Manager
+    const loadingManager = new THREE.LoadingManager();
+    loadingManager.onLoad = () => {
+        const startBtn = document.getElementById('start-btn');
+        if (startBtn) {
+            startBtn.innerText = 'Start Run';
+            startBtn.disabled = false;
+        }
+    };
     
-    this.textureLoader = new THREE.TextureLoader();
+    this.textureLoader = new THREE.TextureLoader(loadingManager);
     this.inputManager = new InputManager();
     
     this.player = new Player(this.scene, this.textureLoader);
