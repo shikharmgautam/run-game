@@ -49,9 +49,8 @@ export class World {
     // Obstacle Geometries & Materials
     this.standardObsGeo = new THREE.BoxGeometry(2.5, 2, 1);
     this.standardObsMat = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
-    // Use a Plane for Praying people, we will incline it at 45 degrees
-    this.prayingObsGeo = new THREE.PlaneGeometry(3, 4);
-    this.prayingObsMat = new THREE.MeshLambertMaterial({ map: this.textures.praying, transparent: true });
+    // Use a Sprite for Praying people so it stands up and faces the camera
+    this.prayingObsMat = new THREE.SpriteMaterial({ map: this.textures.praying, color: 0xffffff });
     
     this.archwayObsGeo = new THREE.BoxGeometry(3, 3, 1);
     this.archwayObsMat = new THREE.MeshLambertMaterial({ map: this.textures.archway, transparent: true });
@@ -156,11 +155,11 @@ export class World {
           yPos = 1;
           yHitMin = 0; yHitMax = 2;
         } else if (typeId === 1) {
-          // Praying person (45 degree incline)
-          mesh = new THREE.Mesh(this.prayingObsGeo, this.prayingObsMat);
-          mesh.rotation.x = -Math.PI / 4; // -45 degrees incline
-          yPos = 1.0; // Raised slightly so the bottom edge touches the floor
-          yHitMin = 0; yHitMax = 1.5; // Requires jump
+          // Praying person (Sprite facing camera)
+          mesh = new THREE.Sprite(this.prayingObsMat);
+          mesh.scale.set(3, 3, 1); // Scale the sprite to be large and visible
+          yPos = 1.5; // Raised so it sits properly on the ground
+          yHitMin = 0; yHitMax = 2.0; // Requires jump
         } else if (typeId === 2) {
           // Archway
           mesh = new THREE.Mesh(this.archwayObsGeo, this.archwayObsMat);
