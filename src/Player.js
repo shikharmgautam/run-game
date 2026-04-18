@@ -21,9 +21,10 @@ export class Player {
     this.slideScaleY = 2;
     this.baseY = 2; // Half the height of the sprite to sit on the floor
     this.slideY = 1;
+    this.baseZ = -4; // Move player ahead so it is not clipped on narrow mobile screens
     
     this.mesh.scale.set(this.baseScaleX, this.baseScaleY, 1);
-    this.mesh.position.set(0, this.baseY, 0);
+    this.mesh.position.set(0, this.baseY, this.baseZ);
     this.scene.add(this.mesh);
     
     // Player position parameters
@@ -139,7 +140,7 @@ export class Player {
   reset() {
     this.currentLane = 0;
     this.targetX = 0;
-    this.mesh.position.set(0, this.baseY, 0);
+    this.mesh.position.set(0, this.baseY, this.baseZ);
     this.mesh.scale.set(this.baseScaleX, this.baseScaleY, 1);
     this.isJumping = false;
     this.isSliding = false;
