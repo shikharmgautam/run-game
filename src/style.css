@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400;700&display=swap');
+
+:root {
+  --bg-color: #0f172a;
+  --text-primary: #f8fafc;
+  --accent-color: #10b981; /* Emerald green, fitting for the theme */
+  --accent-hover: #059669;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+}
+
+/* Canvas is injected by Three.js */
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  background: linear-gradient(to right, #fcd34d, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+p {
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  text-align: center;
+  max-width: 80%;
+}
+
+button {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 1rem 3rem;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.6);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.score-board {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.score-board p {
+  margin-bottom: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.score-board span {
+  color: #fcd34d;
+}
+
+#hud {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'Cinzel', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fcd34d;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  z-index: 5;
+  pointer-events: none;
+}

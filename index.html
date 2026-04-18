@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masjid Runner</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <div id="ui-layer">
+        <div id="start-screen" class="screen active">
+          <h1>Mulle ki daud masjid tak</h1>
+          <p>Use Left/Right Arrows to move, Up Arrow to jump.</p>
+          <button id="start-btn">Start Run</button>
+        </div>
+        <div id="game-over-screen" class="screen">
+          <h1>Game Over</h1>
+          <div class="score-board">
+            <p>Distance: <span id="final-score">0</span>m</p>
+          </div>
+          <button id="restart-btn">Try Again</button>
+        </div>
+        <div id="hud">
+          <span id="current-score">0</span>m
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
